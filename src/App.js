@@ -1,13 +1,27 @@
+import { useDispatch, useSelector } from 'react-redux';
 import './App.css';
 
 function App() {
+  const dispatch = useDispatch();
+  const cash = useSelector(state => state.cash);
+
+  const addCash = (cash) => {
+    dispatch({type: 'ADD_CASH', payload: cash});
+    console.log('ADD_CASH');
+  }
+
+  const getCash = (cash) => {
+    dispatch({type: 'GET_CASH', payload: cash});
+    console.log('GET_CASH');
+  }
+
   return (
     <div className="app">
+      <div style={{fontSize: '3rem'}}>{cash}</div>
       <div style={{display: 'flex'}}>
-        <button>Пополнить счет</button>
-        <button>Снять со счета</button>
+        <button onClick={() => addCash(Number(prompt('Введите сумму пополнения', 5)))}>Пополнить счет</button>
+        <button onClick={() => getCash(Number(prompt('Введите сумму снятия', 5)))}>Снять со счета</button>
       </div>
-
     </div>
   );
 }
